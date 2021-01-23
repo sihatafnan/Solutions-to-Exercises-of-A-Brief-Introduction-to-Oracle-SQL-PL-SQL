@@ -22,7 +22,10 @@ SELECT TO_CHAR(HIRE_DATE,'DD MON,YYYY'), CONCAT(CONCAT(SUBSTR(HIRE_DATE,1, 2), '
 ## Chapter 4: Aggregate Functions
 ### 4.1c
 ```
-Find the minimum, maximum, and average salary of all departments except DEPARTMENT_ID 80. Print DEPARTMENT_ID, minimum, maximum, and average salary.Sort the results in descending order of average salary first, then maximum salary, then minimum salary. Use column alias to rename column names in output for better display
+Find the minimum, maximum, and average salary of all departments except DEPARTMENT_ID 80. 
+Print DEPARTMENT_ID, minimum, maximum, and average salary.Sort the results in descending order
+of average salary first, then maximum salary, then minimum salary. Use column alias to rename
+column names in output for better display.
 ```
 ```sql
 SELECT DEPARTMENT_ID,MAX(SALARY) as mx,min(SALARY) as mn, avg(SALARY) as avg
@@ -37,14 +40,16 @@ Find number of employees in each salary group. Salary groups are considered as f
 Group 1: 0k to <5K, 5k to <10k, 10k to <15k, and so on.
 ```
 ```sql
-SELECT TRUNC(SALARY/5000 , 0)+1 salary_grp_no , TRUNC(SALARY/5000 , 0)*5000 lower_limit , TRUNC(SALARY/5000, 0)*5000+5000-1 upper_limit , COUNT(*)
+SELECT TRUNC(SALARY/5000 , 0)+1 salary_grp_no , TRUNC(SALARY/5000 , 0)*5000 lower_limit ,
+TRUNC(SALARY/5000, 0)*5000+5000-1 upper_limit , COUNT(*)
 FROM EMPLOYEES
 GROUP BY TRUNC(SALARY/5000 , 0)
 ORDER BY salary_grp_no;
 ```
 ### 4.3b
 ```
-Find the number of employees that were hired in each year in each job type. Print year, job id,and total employees hired.
+Find the number of employees that were hired in each year in each job type. Print year, job id,
+and total employees hired.
 ```
 ```sql
 SELECT TO_CHAR(HIRE_DATE , 'YYYY') YEAR , JOB_ID , COUNT(*) Frequency
@@ -103,7 +108,8 @@ ORDER BY e.EMPLOYEE_ID;
 ```
 ### e
 ```
-For each department and job types, find the total number of employees working. Print department names, job titles, and total employees working.
+For each department and job types, find the total number of employees working. Print 
+department names, job titles, and total employees working.
 ```
 ```sql
 SELECT D.DEPARTMENT_NAME , J.JOB_TITLE , COUNT(EMPLOYEE_ID)
@@ -116,7 +122,8 @@ ORDER BY DEPARTMENT_NAME;
 ```
 ### f
 ```
-For each employee, finds the total number of employees those were hired before him/her.Print employee last name and total employees.
+For each employee, finds the total number of employees those were hired before him/her.
+Print employee last name and total employees.
 ```
 ```sql
 SELECT E1.LAST_NAME , COUNT(E2.EMPLOYEE_ID) Hired_Before
@@ -127,7 +134,9 @@ ORDER BY E1.LAST_NAME;
 ```
 ### g
 ```
-For each employee, finds the total number of employees those were hired before him/her and those were hired after him/her. Print employee last name, total employees hired before him,and total employees hired after him
+For each employee, finds the total number of employees those were hired before him/her and
+those were hired after him/her. Print employee last name, total employees hired before him,
+and total employees hired after him
 ```
 ```sql
 SELECT t1.last_name , t1.hired_before , t2.hired_after
@@ -160,7 +169,10 @@ ORDER BY e1.SALARY;
 ```
 ### i
 ```
-For each employee, find his rank, i.e., position with respect to salary. The highest salaried employee should get rank 1 and lowest salaried employee should get the last rank. Employees with same salary should get same rank value. Print employee last names and his/he rank.
+For each employee, find his rank, i.e., position with respect to salary. The highest 
+salaried employee should get rank 1 and lowest salaried employee should get the last 
+rank. Employees with same salary should get same rank value. Print employee last names
+and his/he rank.
 ```
 ```sql
 SELECT e1.LAST_NAME , COUNT(DISTINCT e2.SALARY)+1 as Rank
@@ -171,12 +183,15 @@ ORDER BY Rank asc;
 ```
 ### j
 ```
-Find the names of employees and their salaries for the top three highest salaried employees.The number of employees in your output should be more than three if there are employees with same salary.
+Find the names of employees and their salaries for the top three highest salaried employees.
+The number of employees in your output should be more than three if there are employees with
+same salary.
 ```
 ```sql
 SELECT e1.LAST_NAME , e1.SALARY
 FROM EMPLOYEES e1 
-WHERE((SELECT COUNT(e2.EMPLOYEE_ID) FROM EMPLOYEES e2 WHERE e2.SALARY>e1.SALARY) <= 3) AND e1.SALARY is not null
+WHERE((SELECT COUNT(e2.EMPLOYEE_ID) FROM EMPLOYEES e2 WHERE e2.SALARY>e1.SALARY) <= 3) 
+AND e1.SALARY is not null
 ORDER BY e1.SALARY desc;
 ```
 ## Chapter 6: Query Multiple Tables – Sub-query
@@ -188,11 +203,12 @@ Find the last names of all employees that work in the SALES department.
 ```sql
 SELECT LAST_NAME FROM EMPLOYEES
 WHERE DEPARTMENT_ID = (
-									SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
+		SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
 );
 ```
 ### b
-```Find the last names and salaries of those employees who get higher salary than at least one employee of SALES department.
+```Find the last names and salaries of those employees who get higher salary than at 
+least one employee of SALES department.
 ```
 ```sql
 SELECT LAST_NAME, SALARY
@@ -202,12 +218,13 @@ WHERE SALARY > ANY
 SELECT SALARY
 FROM EMPLOYEES
 WHERE DEPARTMENT_ID = (
-									SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
+		SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
 ) );
 ```
 ### c
 ```
-Find the last names and salaries of those employees whose salary is higher than all employees of SALES department.
+Find the last names and salaries of those employees whose salary is higher than all 
+employees of SALES department.
 ```
 ```sql
 SELECT LAST_NAME, SALARY
@@ -217,12 +234,13 @@ WHERE SALARY > ALL
 SELECT SALARY
 FROM EMPLOYEES
 WHERE DEPARTMENT_ID = (
-									SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
+		SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
 ) );
 ```
 ### d
 ```
-Find the last names and salaries of those employees whose salary is within ± 5k of the average salary of SALES department.
+Find the last names and salaries of those employees whose salary is within ± 5k of 
+the average salary of SALES department.
 ```
 ```sql
 SELECT LAST_NAME,SALARY
@@ -231,36 +249,37 @@ WHERE SALARY
 <=(SELECT 5000 + round(avg(SALARY))
 FROM EMPLOYEES
 WHERE DEPARTMENT_ID = (
-									SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
-))
-
+		SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
+	))
 AND
-
 SALARY>=(SELECT  -5000 + round(avg(SALARY))
 FROM EMPLOYEES
 WHERE DEPARTMENT_ID = (
-									SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
-									) )
+		SELECT DEPARTMENT_ID from DEPARTMENTS WHERE DEPARTMENT_NAME='Sales'
+	) )
 ;
 ```
 ### 6.2
 ### a
 ```
-Find those employees whose salary is higher than at least three other employees. Print last names and salary of each employee. You cannot use join in the main query. Use sub-query in WHERE clause only. You can use join in the sub-queries.
+Find those employees whose salary is higher than at least three other employees. Print
+last names and salary of each employee. You cannot use join in the main query. Use sub-query
+in WHERE clause only. You can use join in the sub-queries.
 ```
 ```sql
 SELECT e1.LAST_NAME,e1.SALARY
 FROM EMPLOYEES e1
 WHERE
 3<=(
-		SELECT COUNT(e2.EMPLOYEE_ID)
-		FROM EMPLOYEES e2
-		WHERE (e2.SALARY<e1.SALARY)
+	SELECT COUNT(e2.EMPLOYEE_ID)
+	FROM EMPLOYEES e2
+	WHERE (e2.SALARY<e1.SALARY)
 ) ORDER BY e1.LAST_NAME;
 ```
 ### b
 ```
-Find those departments whose average salary is greater than the minimum salary of all other departments. Print department names. Use sub-query. You can use join in the sub-queries.
+Find those departments whose average salary is greater than the minimum salary of all other 
+departments. Print department names. Use sub-query. You can use join in the sub-queries.
 ```
 ```sql
 SELECT d.DEPARTMENT_ID,d.DEPARTMENT_NAME
@@ -272,27 +291,33 @@ WHERE
 ```
 ### c
 ```
-Find those department names which have the highest number of employees in service. Print department names. Use sub-query. You can use join in the sub-queries.
+Find those department names which have the highest number of employees in service. Print 
+department names. Use sub-query. You can use join in the sub-queries.
 ```
 ```sql
 SELECT d.DEPARTMENT_NAME,e.No_Of_Employee
-FROM DEPARTMENTS d,(SELECT DEPARTMENT_ID, COUNT(EMPLOYEE_ID ) No_Of_Employee FROM EMPLOYEES GROUP BY DEPARTMENT_ID) e
+FROM DEPARTMENTS d,(SELECT DEPARTMENT_ID, COUNT(EMPLOYEE_ID ) No_Of_Employee 
+FROM EMPLOYEES GROUP BY DEPARTMENT_ID) e
 WHERE d.DEPARTMENT_ID = e.DEPARTMENT_ID
 ORDER BY e.No_Of_Employee desc;
 ```
 ### d
 ```
-Find those employees who worked in more than one department in the company. Print employee last names. You cannot use join in the main query. Use sub-query. You can use join
+Find those employees who worked in more than one department in the company. Print employee 
+last names. You cannot use join in the main query. Use sub-query. You can use join
 in the sub-queries
 ```
 ```sql
 SELECT e.LAST_NAME ,e.EMPLOYEE_ID
 FROM EMPLOYEES e
-WHERE e.DEPARTMENT_ID <> ( SELECT  DISTINCT j.DEPARTMENT_ID FROM JOB_HISTORY j WHERE e.EMPLOYEE_ID = j.EMPLOYEE_ID );
+WHERE e.DEPARTMENT_ID <> ( SELECT  DISTINCT j.DEPARTMENT_ID FROM JOB_HISTORY j WHERE 
+e.EMPLOYEE_ID = j.EMPLOYEE_ID );
 ```
 ### e
 ```
-For each employee, find the minimum and maximum salary of his/her department. Print employee last name, minimum salary, and maximum salary. Do not use sub-query in WHERE clause. Use sub-query in FROM clause.
+For each employee, find the minimum and maximum salary of his/her department. Print 
+employee last name, minimum salary, and maximum salary. Do not use sub-query in WHERE
+clause. Use sub-query in FROM clause.
 ```
 ```sql
 SELECT E.LAST_NAME, D.MINSAL, D.MAXSAL
@@ -307,21 +332,20 @@ WHERE (E.DEPARTMENT_ID = D.DEPT)
 ```
 ### f
 ```
-For each job type, find the employee who gets the highest salary. Print job title and last name of the employee. Assume that there is one and only one such employee for every job type.
+For each job type, find the employee who gets the highest salary. Print job title and 
+last name of the employee. Assume that there is one and only one such employee for every
+job type.
 ```
 ```sql
 SELECT ln , jt
 FROM
 (
-	SELECT
-	
+	SELECT	
 	ROW_NUMBER() OVER(
 		PARTITION BY j.JOB_TITLE 
 		ORDER BY e.SALARY desc
 	) row_num,
-	
 	e.LAST_NAME ln, j.JOB_TITLE  jt
-	
 	FROM EMPLOYEES e JOIN JOBS j ON( e.JOB_ID = j.JOB_ID )
 ) t
 WHERE row_num=1;
@@ -371,16 +395,20 @@ SET e.SALARY = (SELECT max(SALARY) FROM EMPLOYEES x WHERE x.DEPARTMENT_ID=e.DEPA
 ```
 ### c
 ```
-Update COMMISSION_PCT to N times for each employee where N is the number of employees he/she manages. When N = 0, keep the old value of COMMISSION_PCT column.
+Update COMMISSION_PCT to N times for each employee where N is the number of employees he/she 
+manages. When N = 0, keep the old value of COMMISSION_PCT column.
 ```
 ```sql
 UPDATE EMPLOYEES e
-SET e.COMMISSION_PCT = e.COMMISSION_PCT*(SELECT COUNT(MANAGER_ID) FROM EMPLOYEES x WHERE e.DEPARTMENT_ID=x.MANAGER_ID)
-WHERE (SELECT COUNT(MANAGER_ID) FROM EMPLOYEES x WHERE e.DEPARTMENT_ID=x.MANAGER_ID)>0;
+SET e.COMMISSION_PCT = e.COMMISSION_PCT*(SELECT COUNT(MANAGER_ID)
+FROM EMPLOYEES x WHERE e.DEPARTMENT_ID=x.MANAGER_ID)
+WHERE (SELECT COUNT(MANAGER_ID) 
+FROM EMPLOYEES x WHERE e.DEPARTMENT_ID=x.MANAGER_ID)>0;
 ```
 ### d
 ```
-Update the hiring dates of all employees to the first day of the same year. Do not change this for those employees who joined on or after year 2000.
+Update the hiring dates of all employees to the first day of the same year.
+Do not change this for those employees who joined on or after year 2000.
 ```
 ```sql
 UPDATE EMPLOYEES e
