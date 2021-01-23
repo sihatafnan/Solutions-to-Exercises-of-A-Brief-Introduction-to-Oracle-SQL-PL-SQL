@@ -1,4 +1,7 @@
-A brief Introduction to Oracle-SQL-PL SQL,taught in CSE216 Database Sessional course, is a SQL practice book written by [Prof. Sukarna Barua](https://cse.buet.ac.bd/faculty/facdetail.php?id=sukarnabarua).The book contains most of the fundamental sql queries using join,subquery,group by,set operation,pl-sql etc.There are 11 chapters in total and several exercises follows.All the exercises are based on HR schema of `ORACLE`.Let's look at the overview of HR schema
+A brief Introduction to Oracle-SQL-PL SQL,taught in CSE216 Database Sessional course, is a SQL practice book written by [Prof. Sukarna Barua](https://cse.buet.ac.bd/faculty/facdetail.php?id=sukarnabarua).The book contains most of the fundamental sql queries using join,subquery,group by,set operation,pl-sql etc.There are 11 chapters in total and several exercises follows.All the exercises are based on HR schema of `ORACLE`.
+
+First , Let's look at the overview of HR schema
+
 ![hr_schema](https://lh3.googleusercontent.com/proxy/glVSEQ3auTa6TE3xs75Xqvk7e-fNRZkC6HEse74dxZK_TcuT7hNtmKONnzH92t6SjYoQWOAQUYp9Br_2HNCBUYkJ6A0knlWnZra4oH3Isg)
 
 In this repository,You won't find solutions to all the exercises but you will find what you need.I have left out those ones which are too easy or similar to the ones I listed hereor is easily doable by looking at the examples of this book.
