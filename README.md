@@ -6,10 +6,13 @@ In this repository,You won't find solutions to all the exercises but you will fi
 ## Chapter 3: Use of Oracle Single Row Functions
 ### 3.3b
 ```
-Suppose you need to find the number of days each employee worked during the first month of his joining. Write an SQL query to find this information for all employees
+Suppose you need to find the number of days each employee worked during the first 
+month of his joining. Write an SQL query to find this information for all employees
 ```
 ```sql
-SELECT 30+MOD(EXTRACT(MONTH FROM HIRE_DATE),2) - EXTRACT(DAY FROM HIRE_DATE) as day_worked_join_month from EMPLOYEES;
+SELECT 30+MOD(EXTRACT(MONTH FROM HIRE_DATE),2) 
+	- 
+EXTRACT(DAY FROM HIRE_DATE) as day_worked_join_month from EMPLOYEES;
 ```
 ### 3.5
 ```
@@ -17,7 +20,8 @@ Print hire dates of all employees in the following formats:
 (i) 13th February, 1998 (ii) 13 February, 1998.
 ```
 ```sql
-SELECT TO_CHAR(HIRE_DATE,'DD MON,YYYY'), CONCAT(CONCAT(SUBSTR(HIRE_DATE,1, 2), 'th'), SUBSTR(TO_CHAR(HIRE_DATE,'DD MON,YYYY'),3,9)) FROM EMPLOYEES;
+SELECT TO_CHAR(HIRE_DATE,'DD MON,YYYY'), CONCAT(CONCAT(SUBSTR(HIRE_DATE,1, 2), 'th'), 
+SUBSTR(TO_CHAR(HIRE_DATE,'DD MON,YYYY'),3,9)) FROM EMPLOYEES;
 ```
 ## Chapter 4: Aggregate Functions
 ### 4.1c
@@ -354,7 +358,8 @@ WHERE row_num=1;
 ### 7.1
 ### a
 ```
-Find EMPLOYEE_ID of those employees who are not managers. Use minus operator to perform this.
+Find EMPLOYEE_ID of those employees who are not managers. Use minus operator to perform
+this.
 ```
 ```sql
 SELECT EMPLOYEE_ID FROM EMPLOYEES
@@ -369,9 +374,9 @@ Find last names of those employees who are not managers. Use minus operator to p
 SELECT LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID
 IN
 (
-		SELECT EMPLOYEE_ID FROM EMPLOYEES
-		MINUS
-		(SELECT MANAGER_ID FROM EMPLOYEES)
+	SELECT EMPLOYEE_ID FROM EMPLOYEES
+	MINUS
+	(SELECT MANAGER_ID FROM EMPLOYEES)
 )
 ```
 ### c
@@ -424,6 +429,57 @@ Delete those locations having no departments.
 DELETE FROM LOCATIONS
 WHERE LOCATION_ID NOT IN(SELECT LOCATION_ID FROM DEPARTMENTS);
 ```
+## Chapter 11: Introduction to PL/SQL
+### 11.1 a
+```
+Write a PL/SQL block that will print ‘Happy Anniversary X’ for each employee X whose
+hiring date is today. Use cursor FOR loop for the task.
+```
+```sql
+DECLARE
+YEARS NUMBER ;
+hd_m NUMBER;
+hd_d NUMBER;
+cd NUMBER;
+cm NUMBER;
+BEGIN
+
+FOR R IN (SELECT HIRE_DATE,LAST_NAME FROM EMPLOYEES )
+LOOP
+hd_m :=extract(MONTH from R.HIRE_DATE);
+hd_d := extract(DAY from R.HIRE_DATE);
+cd := EXTRACT(DAY from SYSDATE);
+cm := EXTRACT(MONTH from SYSDATE);
+
+IF cd=hd_d AND hd_m=cm THEN
+	DBMS_OUTPUT.PUT_LINE('Happy Anniversary' || R.LAST_NAME ) ;	
+END IF;
+END LOOP ;
+END ;
+/
+```
+### 11.2 b
+```
+Write an example PL/SQL block that inserts a new arbitrary row to the COUNTRIES table.
+The block should handle the exception DUP_VAL_ON_INDEX and OTHERS. Run the
+block for different COUNTRY_ID and observe the cases when above exception occurs.
+```
+```sql
+DECLARE
+BEGIN
+INSERT INTO COUNTRIES
+VALUES('BD' , 'Bangladesh' , 4);
+
+EXCEPTION
+WHEN DUP_VAL_ON_INDEX THEN
+DBMS_OUTPUT.PUT_LINE('Duplicate value found!!') ;
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE('I dont know what happened!') ;
+END;
+/
+```
+
+You are invited to correct me in case I made a mistake and are welcomed to add those few missing exercises if you want.
 
 
 
