@@ -2,7 +2,7 @@ A brief Introduction to Oracle-SQL-PL SQL,taught in our CSE216 Database Sessiona
 
 First , Let's look at the overview of HR schema
 
-![hr_schema](https://lh3.googleusercontent.com/proxy/glVSEQ3auTa6TE3xs75Xqvk7e-fNRZkC6HEse74dxZK_TcuT7hNtmKONnzH92t6SjYoQWOAQUYp9Br_2HNCBUYkJ6A0knlWnZra4oH3Isg)
+![hr_schema](https://static.webucator.com/materials/manuals/courseware-oracle/hr-ed-with-labels.png)
 
 In this repository,You won't find solutions to all the exercises but you will find what you need.I have left out those ones which are too easy or similar to the ones I listed here or is easily doable by looking at the examples of this book.
 
