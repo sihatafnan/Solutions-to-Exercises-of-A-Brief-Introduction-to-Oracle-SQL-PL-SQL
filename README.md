@@ -215,7 +215,8 @@ WHERE DEPARTMENT_ID = (
 ```
 ### b
 ```Find the last names and salaries of those employees who get higher salary than at 
-least one employee of SALES department.
+least one employee of SALES department
+
 ```
 ```sql
 SELECT LAST_NAME, SALARY
