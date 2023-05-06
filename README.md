@@ -214,10 +214,11 @@ WHERE DEPARTMENT_ID = (
 );
 ```
 ### b
-```Find the last names and salaries of those employees who get higher salary than at 
-least one employee of SALES department
-
 ```
+Find the last names and salaries of those employees who get higher salary than at 
+least one employee of SALES department
+```
+
 ```sql
 SELECT LAST_NAME, SALARY
 FROM EMPLOYEES
